@@ -15,7 +15,7 @@ class KeyPressEmulator:
     def __init__(self, root):
         self.root = root
         self.root.title("Эмулятор нажатия клавиши")
-        self.root.geometry("500x220+1200+100")  # Устанавливаем размер окна 500x220 и задаем начальное местоположение
+        self.root.geometry("500x230+1200+100")  # Устанавливаем размер окна 500x220 и задаем начальное местоположение
         self.root.attributes('-topmost', True)  # Устанавливаем окно поверх всех остальных окон
 
         self.direction_label = tk.Label(root, text="Выберите направление:")
