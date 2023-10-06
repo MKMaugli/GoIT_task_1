@@ -10,20 +10,13 @@ import atexit
 import sys
 import os
 import psutil
-import pickle
 
 class KeyPressEmulator:
     def __init__(self, root):
         self.root = root
         self.root.title("Эмулятор нажатия клавиши")
-
-        # Восстановление местоположения окна, если оно было сохранено
-        try:
-            with open("window_position.pkl", "rb") as file:
-                window_position = pickle.load(file)
-                self.root.geometry(window_position)
-        except FileNotFoundError:
-            self.root.geometry("400x220")  # Устанавливаем размер окна по умолчанию
+        self.root.geometry("500x220+1200+100")  # Устанавливаем размер окна 500x220 и задаем начальное местоположение
+        self.root.attributes('-topmost', True)  # Устанавливаем окно поверх всех остальных окон
 
         self.direction_label = tk.Label(root, text="Выберите направление:")
         self.direction_label.grid(row=0, column=0, sticky="w", padx=10)
@@ -35,28 +28,34 @@ class KeyPressEmulator:
         self.left_radio.grid(row=0, column=1, sticky="w")
 
         self.right_radio = tk.Radiobutton(root, text="Вправо", variable=self.direction_var, value="Вправо")
-        self.right_radio.grid(row=1, column=1, sticky="w")
+        self.right_radio.grid(row=0, column=2, sticky="w")
+
+        self.left_radio = tk.Radiobutton(root, text="Вверх", variable=self.direction_var, value="Вверх")
+        self.left_radio.grid(row=1, column=1, sticky="w")
+
+        self.right_radio = tk.Radiobutton(root, text="Вниз", variable=self.direction_var, value="Вниз")
+        self.right_radio.grid(row=1, column=2, sticky="w")
 
         self.speed_label = tk.Label(root, text="Скорость нажатия (мс):")
-        self.speed_label.grid(row=2, column=0, sticky="w", padx=10)
+        self.speed_label.grid(row=2, column=0, sticky="w", padx=10, pady=10)
 
         self.speed_var = tk.IntVar()
         self.speed_var.set(100)
-        self.speed_entry = ttk.Entry(root, textvariable=self.speed_var)
-        self.speed_entry.grid(row=2, column=1)
+        self.speed_entry = ttk.Entry(root, textvariable=self.speed_var, justify="left", width=6)
+        self.speed_entry.grid(row=2, column=1, sticky="w")
 
         self.repeat_label = tk.Label(root, text="Количество нажатий:")
         self.repeat_label.grid(row=3, column=0, sticky="w", padx=10)
 
         self.repeat_var = tk.IntVar()
         self.repeat_var.set(50)
-        self.repeat_entry = ttk.Entry(root, textvariable=self.repeat_var)
-        self.repeat_entry.grid(row=3, column=1)
+        self.repeat_entry = ttk.Entry(root, textvariable=self.repeat_var, justify="left", width=6)
+        self.repeat_entry.grid(row=3, column=1, sticky="w")
 
         self.infinite_repeat_var = tk.IntVar()
         self.infinite_repeat_checkbox = tk.Checkbutton(root, text="Бесконечное повторение", variable=self.infinite_repeat_var)
-        self.infinite_repeat_checkbox.grid(row=4, columnspan=2, padx=10)
-        
+        self.infinite_repeat_checkbox.grid(row=4, column=1, columnspan=2, sticky="w", padx=0)
+
         self.button_frame = tk.Frame(root)
         self.button_frame.grid(row=5, columnspan=2, pady=10)
 
@@ -94,6 +93,10 @@ class KeyPressEmulator:
                 pyautogui.press("left")
             elif direction == "Вправо":
                 pyautogui.press("right")
+            elif direction == "Вверх":
+                pyautogui.press("up")
+            elif direction == "Вниз":
+                pyautogui.press("down")
             repeat -= 1
             if repeat == 0 and not infinite_repeat:
                 self.stop_emulation()
