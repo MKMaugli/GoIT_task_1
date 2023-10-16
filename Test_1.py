@@ -1,9 +1,29 @@
+# num1 = int(input("Enter a number: "))
+num1 = input("Enter a number: ")
+num = float(num1)
 
-# print(3 + 4 >= 3 == False)
+try:
+    num = float(num1)
+    if num.is_integer():
+        num = int(num)
+    else:
+        print("The number should be an integer.")
+        exit()
+except ValueError:
+    print("Invalid input. Please enter a valid number.")
+    exit()
 
-a = 4 ** 2
+if num >0:
+    if (num %2) == 0:
+        result = "Positive odd number"      #Положительное четное число
+    else:
+        result = "Positive even number"     #Положительное нечетное число
+elif num < 0:
+    result = "Negative number"
+else:
+    result = "It is zero"
 
+print (result)
 
-
-print (a)
-
+# print (height)
+# print (is_active)
