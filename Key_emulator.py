@@ -22,7 +22,7 @@ class KeyPressEmulator:
         self.direction_label.grid(row=0, column=0, sticky="w", padx=10)
 
         self.direction_var = tk.StringVar()
-        self.direction_var.set("Влево")
+        self.direction_var.set("Вправо")
 
         self.left_radio = tk.Radiobutton(root, text="Влево", variable=self.direction_var, value="Влево")
         self.left_radio.grid(row=0, column=1, sticky="w")

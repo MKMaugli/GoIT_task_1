@@ -15,14 +15,16 @@ except ValueError:
 
 if num >0:
     if (num %2) == 0:
-        result = "Positive odd number"      #Положительное четное число
+        result = "Positive even number"      #Положительное четное число
     else:
-        result = "Positive even number"     #Положительное нечетное число
+        result = "Positive odd number"     #Положительное нечетное число
 elif num < 0:
     result = "Negative number"
 else:
     result = "It is zero"
 
+a = num %2
+print (a)
 print (result)
 
 # print (height)
