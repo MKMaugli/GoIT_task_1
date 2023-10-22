@@ -1,17 +1,56 @@
-def offset_char(char, offset):
-    if 'a' <= char <= 'z':
-        return chr(((ord(char) - ord('a') + offset) % 26) + ord('a'))
-    elif 'A' <= char <= 'Z':
-        return chr(((ord(char) - ord('A') + offset) % 26) + ord('A'))
-    return char
+result = None
+operand = None
+operator = None
 
-def encode_string(input_string, offset):
-    encoded_string = ""
-    for char in input_string:
-        encoded_string += offset_char(char, offset)
-    return encoded_string
+while True:
+    try:
+        operand = float(input("Введите число: "))
+    except ValueError:
+        print("Введено не число. Попробуйте снова.")
+        continue
 
-message = input("Enter a string to encode: ")
-offset = int(input("Enter the offset amount: "))
-encoded_message = encode_string(message, offset)
-print("Encoded string:", encoded_message)
+    while True:
+        operator = input("Введите оператор (+, -, *, /) или '=' для вычисления: ")
+
+        if operator == '=':
+            if result is not None:
+                if operator != '=':
+                    if operator == '+':
+                        result = result + operand
+                    elif operator == '-':
+                        result = result - operand
+                    elif operator == '*':
+                        result = result * operand
+                    elif operator == '/':
+                        if operand != 0:
+                            result = result / operand
+                        else:
+                            print("Деление на ноль невозможно.")
+                    else:
+                        print(f"Результат: {result}")
+                else:
+                    result = operand
+                print(f"Результат: {result}")
+                break
+            else:
+                result = operand
+                break
+        elif operator in "+-*/":
+            if result is not None:
+                if operator == '+':
+                    result = result + operand
+                elif operator == '-':
+                    result = result - operand
+                elif operator == '*':
+                    result = result * operand
+                elif operator == '/':
+                    if operand != 0:
+                        result = result / operand
+                    else:
+                        print("Деление на ноль невозможно.")
+                        break
+            else:
+                result = operand
+            break
+        else:
+            print(f"'{operator}' не является допустимым оператором. Попробуйте снова.")
