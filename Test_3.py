@@ -1,11 +1,8 @@
-num = 5
+num = 10
 sum = 0
-sum2= 0
 
-for i in range(num):
+for i in range(num+1):
     sum += i
-    i = i+1
-    sum2 += i
-    # print(sum)
+    print(sum)
     
     
