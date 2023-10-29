@@ -1,11 +1,13 @@
-base_rate = 40
-price_per_km = 10
-total_trip = 0
+def discount_price(price, discount):
+    float(price)
+    float(discount)         #= float(input("Enter the discount: "))
+    
+    def apply_discount():
+        nonlocal price
+        price = (price*(1-discount))
 
+    apply_discount()
+    return price
 
-def calculate_trip_price(distance_km):
-    global total_trip
-    total_trip += 1
-    return (base_rate + price_per_km*distance_km)
-
-print(calculate_trip_price (5))
+discount_price(100, 0.1)
+print(discount_price)
