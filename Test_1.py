@@ -1,14 +1,15 @@
-def first(size, *args):
-    return size + len(args)
+def modeling(factor, *numbers, correction):
+    result = 0
+    for number in numbers:
+        result += number * factor
+    result = result - correction
+    return result
 
-# Пример вызова функции:
-result = first(5, "first", "second", "third")
-print(result)  # Выведет число: 8 (5 + 3)
+print(modeling(10, 1, 2, 3, correction=2))  # 58
 
-def second(size, **args):
-    return size + len(args)
-
-second(3, comment_one="first", comment_two="second", comment_third="third")
-
-result = second(3, comment_one="first", comment_two="second", comment_third="third")
-print(result)
+def modeling2(factor, *_, correction):
+    factor = int(input('Enter number: '))
+    result = factor*5 - correction
+    return (result)
+    
+print(modeling2(10, correction=3))
