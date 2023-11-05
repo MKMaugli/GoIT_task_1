@@ -1,16 +1,25 @@
-def factorial(n):
-    if n < 2:
-        return 1  # Базовый случай
+def fibonacci(n):
+    if n ==0:
+        return 0
+    elif n < 0:
+        return print('Введено отрицательное число!')
     else:
-        return n * factorial(n - 1)  # Рекурсивный случай
+        fib1 = fib2 = 1
+        n = (int(n)-2)
+        while n>0:
+            fib1, fib2 = fib2, fib1 + fib2
+            n -= 1
+        return fib2
+    
+print(fibonacci(7))
 
-
-# num = int(input("Введите положительное целое число: "))
-# result = factorial(num)
-# print(f"Факториал числа {num} равен {result}")
-
-def number_of_groups(n, k):
-    result_count = int(factorial(n) / (factorial(n - k) * (factorial(k))))
-    return result_count
-
-print(number_of_groups (50, 7))
+#Эта же функция, но через рекурсию:
+def fibonacci_recursive(n):
+    if n <= 0:
+        return 0
+    elif n == 1 or n == 2:
+        return 1
+    else:
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+ 
+print(fibonacci_recursive(7))

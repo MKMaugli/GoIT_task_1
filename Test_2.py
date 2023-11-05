@@ -1,8 +1,9 @@
-def get_fullname (first_name, last_name, middle_name=''):
-    if middle_name == '':
-        f'{first_name} {middle_name} {last_name}'
+def fibonacci_recursive(n):
+    if n <= 0:
+        return 0
+    elif n == 1 or n == 2:
+        return 1
     else:
-        f'{first_name} {last_name}'
-
-
-print(get_fullname ("Petro", "Zaliznyak"))
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+ 
+print(fibonacci_recursive(7))
