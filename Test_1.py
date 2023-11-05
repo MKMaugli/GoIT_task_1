@@ -1,15 +1,18 @@
-def modeling(factor, *numbers, correction):
-    result = 0
-    for number in numbers:
-        result += number * factor
-    result = result - correction
-    return result
+def cost_delivery(quantity, *numbers, discount=0):
+    """Функция возвращает общую сумму доставки.
 
-print(modeling(10, 1, 2, 3, correction=2))  # 58
+        Первый параметр &mdash; количество товаров в заказе.
+        Параметр скидки discount, передаваемый только по ключу, по умолчанию имеет значение 0."""
 
-def modeling2(factor, *_, correction):
-    factor = int(input('Enter number: '))
-    result = factor*5 - correction
-    return (result)
-    
-print(modeling2(10, correction=3))
+    if discount == 0:
+        result = 5+((quantity-1)*2)
+        return result
+    else:
+        result = (5+((quantity-1)*2))*discount
+        return result
+
+print(cost_delivery.__doc__)
+print(cost_delivery(2, 1, 2, 3, discount=0.5))
+
+
+
