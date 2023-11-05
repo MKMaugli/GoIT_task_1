@@ -1,18 +1,16 @@
-def cost_delivery(quantity, *numbers, discount=0):
-    """Функция возвращает общую сумму доставки.
-
-        Первый параметр &mdash; количество товаров в заказе.
-        Параметр скидки discount, передаваемый только по ключу, по умолчанию имеет значение 0."""
-
-    if discount == 0:
-        result = 5+((quantity-1)*2)
-        return result
+def factorial(n):
+    if n < 2:
+        return 1  # Базовый случай
     else:
-        result = (5+((quantity-1)*2))*discount
-        return result
-
-print(cost_delivery.__doc__)
-print(cost_delivery(2, 1, 2, 3, discount=0.5))
+        return n * factorial(n - 1)  # Рекурсивный случай
 
 
+# num = int(input("Введите положительное целое число: "))
+# result = factorial(num)
+# print(f"Факториал числа {num} равен {result}")
 
+def number_of_groups(n, k):
+    result_count = int(factorial(n) / (factorial(n - k) * (factorial(k))))
+    return result_count
+
+print(number_of_groups (50, 7))
