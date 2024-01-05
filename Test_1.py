@@ -1,12 +1,28 @@
-import re
+def total_salary(path):
+    total = 0.0
 
-def find_all_links(text):
-    pattern = r'https?://(?:www\.)?[a-zA-Z][a-zA-Z0-9]+\.[a-zA-Z]{2,}(?=\s|$)'
-    result = [match.group() for match in re.finditer(pattern, text)]
-    return result
+    # Відкриття файлу за вказаним шляхом
+    file = open(path, 'r')
 
+    # Читання рядка за рядком
+    line = file.readline()
+    while line:
+        # Розбиття рядка на ім'я та зарплату за допомогою коми
+        name, salary_str = line.strip().split(',')
+
+        # Перетворення зарплати в число та додавання до загальної суми
+        total += float(salary_str)
+
+        # Читання наступного рядка
+        line = file.readline()
+
+    # Закриття файлу
+    file.close()
+
+    # Повернення загальної суми у вигляді float
+    return total
 
 # Приклад використання
-text = "The main search site in the world is https://www.google.com The main social network for people in the world is https://www.facebook.com But programmers have their own social network http://github.com There they share their code. some url to check https://www..facebook.com www.facebook.com "
-links = find_all_links(text)
-print(links)
+file_path = "шлях_до_файлу.txt"
+total_salary_value = total_salary(file_path)
+print(f"Загальна заробітна плата: {total_salary_value}")
