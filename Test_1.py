@@ -1,14 +1,21 @@
-def add_employee_to_file(record, path):
-    # Відкриття файлу за вказаним шляхом у режимі 'a' (для додавання)
-    file = open(path, 'a')
+def get_cats_info(path):
+    cats_list = []
 
-    # Додавання співробітника (record) у файл та початок нового рядка
-    file.write(record + "\n")
+    # Відкриття файлу за вказаним шляхом у режимі 'r' за допомогою менеджера контексту with
+    with open(path, 'r') as file:
+        # Читання кожного рядка з файлу
+        for line in file:
+            # Розбиття рядка на складові частини за допомогою коми
+            parts = line.strip().split(',')
 
-    # Закриття файлу
-    file.close()
+            # Створення словника із складових частин та додавання його до списку
+            cat_info = {"id": parts[0], "name": parts[1], "age": parts[2]}
+            cats_list.append(cat_info)
+
+    # Повернення списку котів
+    return cats_list
 
 # Приклад використання
-employee_record = "Drake Mikelsson,19"
 file_path = "шлях_до_файлу.txt"
-add_employee_to_file(employee_record, file_path)
+cats_info = get_cats_info(file_path)
+print(cats_info)
