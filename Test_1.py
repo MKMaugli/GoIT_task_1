@@ -1,19 +1,23 @@
-def get_credentials_users(path):
-    try:
-        # Відкриття файлу у бінарному режимі для читання
-        with open(path, 'rb') as file:
-            # Читання вмісту файлу та конвертація байтів у рядки
-            content = [line.decode('utf-8').strip() for line in file]
+import base64
 
-        return content
+def encode_data_to_base64(data):
+    # Створення нового списку для збереження закодованих пар username:password
+    encoded_list = []
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+    # Ітерація по кожному елементу у вхідному списку
+    for item in data:
+        # Розділення пари username:password
+        username, password = item.split(':')
+
+        # Кодування пари у форматі Base64
+        encoded_pair = base64.b64encode(f"{username}:{password}".encode('utf-8')).decode('utf-8')
+
+        # Додавання закодованої пари у новий список
+        encoded_list.append(encoded_pair)
+
+    return encoded_list
 
 # Приклад використання
-file_path = "шлях_до_вхідного_файлу.bin"
-result = get_credentials_users(file_path)
-
-if result:
-    print(result)
+credentials_list = ['andry:uyro18890D', 'steve:oppjM13LL9e']
+result = encode_data_to_base64(credentials_list)
+print(result)
