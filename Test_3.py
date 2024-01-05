@@ -1,9 +1,16 @@
-fib1 = fib2 = 1
- 
-n = int(input('Введите номер числа Фибоначчи:'))
- 
-print(fib1, fib2, end=' ')
- 
-for i in range(2, n):
-    fib1, fib2 = fib2, fib1 + fib2
-    print(fib2, end=' ')
+def game(lists, power):
+    for sublist in lists:
+        for energy in sublist:
+            if energy <= power:
+                power += energy
+            else:
+                break
+
+    return power
+
+# Приклад використання:
+example_list = [[1, 1, 5, 10], [10, 2], [1, 1, 1]]
+initial_power = 1
+
+result_energy = game(example_list, initial_power)
+print(f"Загальна енергія гравця: {result_energy}")
