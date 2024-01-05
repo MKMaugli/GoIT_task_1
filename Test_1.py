@@ -1,14 +1,73 @@
-def real_len(input_str):
-    control_chars = ['\n', '\f', '\r', '\t', '\v']
-    result_str = ''.join(char for char in input_str if char not in control_chars)
-    return len(result_str)
+articles_dict = [
+    {
+        "title": "Endless ocean waters.",
+        "author": "Jhon Stark",
+        "year": 2019,
+    },
+    {
+        "title": "Oceans of other planets are full of silver",
+        "author": "Artur Clark",
+        "year": 2020,
+    },
+    {
+        "title": "An ocean that cannot be crossed.",
+        "author": "Silver Name",
+        "year": 2021,
+    },
+    {
+        "title": "The ocean that you love.",
+        "author": "Golden Gun",
+        "year": 2021,
+    },
+]
 
-# Приклад виклику
-string1 = 'Alex\nKdfe23\t\f\v.\r'
-string2 = 'Al\nKdfe23\t\v.\r'
 
-length1 = real_len(string1)
-length2 = real_len(string2)
+def find_articles(key, letter_case=False):
+    result_articles = []
 
-print(f'Length of string1 without control characters: {length1}')
-print(f'Length of string2 without control characters: {length2}')
+    for article in articles_dict:
+        author_names = article['author'].split()
+        title = article['title']
+
+        if not letter_case:
+            key = key.lower()
+            author_names = [name.lower() for name in author_names]
+            title = title.lower()
+
+        if any(key in name for name in author_names) or key in title:
+            result_articles.append({
+                'author': article['author'],
+                'title': article['title'],
+                'year': article['year']
+            })
+
+    return result_articles
+
+
+# Пример вызова
+articles_dict = [
+    {
+        "title": "Endless ocean waters.",
+        "author": "Jhon Stark",
+        "year": 2019,
+    },
+    {
+        "title": "Oceans of other planets are full of silver",
+        "author": "Artur Clark",
+        "year": 2020,
+    },
+    {
+        "title": "An ocean that cannot be crossed.",
+        "author": "Silver Name",
+        "year": 2021,
+    },
+    {
+        "title": "The ocean that you love.",
+        "author": "Golden Gun",
+        "year": 2021,
+    },
+]
+
+key_to_find = "Ocean"
+found_articles = find_articles(key_to_find, letter_case=True)
+print(found_articles)
