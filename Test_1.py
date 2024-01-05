@@ -1,35 +1,14 @@
-def get_grade(ects_key):
-    ects_grades = {
-        "F": 1,
-        "FX": 2,
-        "E": 3,
-        "D": 3,
-        "C": 4,
-        "B": 5,
-        "A": 5
-    }
-
-    return ects_grades.get(ects_key, None)
-
-def get_description(ects_key):
-    ects_descriptions = {
-        "F": "Unsatisfactorily",
-        "FX": "Unsatisfactorily",
-        "E": "Enough",
-        "D": "Satisfactorily",
-        "C": "Good",
-        "B": "Very good",
-        "A": "Perfectly"
-    }
-
-    return ects_descriptions.get(ects_key, None)
+def lookup_key(dictionary, value):
+    keys_list = [key for key, val in dictionary.items() if val == value]
+    return keys_list
 
 # Приклад використання:
-ects_grade = "D"
-grade_value = get_grade(ects_grade)
-grade_description = get_description(ects_grade)
+sample_dict = {"a": 1, "b": 2, "c": 1, "d": 3}
+search_value = 1
 
-if grade_value is not None and grade_description is not None:
-    print(f"Оцінка: {grade_value} ({ects_grade}), Пояснення: {grade_description}")
+result_keys = lookup_key(sample_dict, search_value)
+
+if result_keys:
+    print(f"Знайдені ключі за значенням {search_value}: {result_keys}")
 else:
-    print("Неправильний ключ ECTS.")
+    print(f"Не знайдено жодного ключа за значенням {search_value}.")
