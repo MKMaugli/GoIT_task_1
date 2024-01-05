@@ -1,26 +1,14 @@
-def read_employees_from_file(path):
-    # Відкриття файлу за вказаним шляхом у режимі "r"
-    file = open(path, 'r')
+def add_employee_to_file(record, path):
+    # Відкриття файлу за вказаним шляхом у режимі 'a' (для додавання)
+    file = open(path, 'a')
 
-    # Ініціалізація списку співробітників
-    employees_list = []
-
-    # Читання кожного рядка з файлу
-    line = file.readline()
-    while line:
-        # Додавання рядка без символу кінця рядка до списку
-        employees_list.append(line.strip())
-
-        # Читання наступного рядка
-        line = file.readline()
+    # Додавання співробітника (record) у файл та початок нового рядка
+    file.write(record + "\n")
 
     # Закриття файлу
     file.close()
 
-    # Повернення списку співробітників
-    return employees_list
-
 # Приклад використання
+employee_record = "Drake Mikelsson,19"
 file_path = "шлях_до_файлу.txt"
-employees_data = read_employees_from_file(file_path)
-print(employees_data)
+add_employee_to_file(employee_record, file_path)
