@@ -1,16 +1,21 @@
-def game(terra, power):
-    for sublist in terra:
-        for value in sublist:
-            if value <= power:
-                power += value
-            else:
-                break
+def is_valid_pin_codes(pin_codes):
+    # Перевірка на порожній список.
+    if not pin_codes:
+        return False
 
-    return power
+    # Перевірка на наявність дублікатів та правильний формат.
+    unique_pins = set(pin_codes)
+    if len(unique_pins) != len(pin_codes):
+        return False
+
+    for pin in unique_pins:
+        if len(pin) != 4 or not pin.isdigit():
+            return False
+
+    return True
 
 # Приклад використання:
-example_list = [[1, 1, 5, 10], [10, 2], [1, 1, 1]]
-initial_power = 1
+pin_codes = ['1101', '9034', '0011']
 
-result_energy = game(example_list, initial_power)
-print(f"Загальна енергія гравця: {result_energy}")
+result = is_valid_pin_codes(pin_codes)
+print(result)
