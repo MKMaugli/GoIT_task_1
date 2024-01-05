@@ -1,73 +1,22 @@
-articles_dict = [
-    {
-        "title": "Endless ocean waters.",
-        "author": "Jhon Stark",
-        "year": 2019,
-    },
-    {
-        "title": "Oceans of other planets are full of silver",
-        "author": "Artur Clark",
-        "year": 2020,
-    },
-    {
-        "title": "An ocean that cannot be crossed.",
-        "author": "Silver Name",
-        "year": 2021,
-    },
-    {
-        "title": "The ocean that you love.",
-        "author": "Golden Gun",
-        "year": 2021,
-    },
+def sanitize_phone_number(phone):
+    # Удаление всех символов, кроме цифр
+    digits_only = ''.join(char for char in phone if char.isdigit())
+
+    # Проверка и преобразование в правильный формат
+    if len(digits_only) >= 10:  # если номер содержит 10 или более цифр
+        return digits_only
+    else:
+        return None  # возвращаем None для обозначения некорректного номера
+
+# Пример использования
+phone_numbers = [
+    "+38(050)123-32-34",
+    "0503451234",
 ]
 
-
-def find_articles(key, letter_case=False):
-    result_articles = []
-
-    for article in articles_dict:
-        author_names = article['author'].split()
-        title = article['title']
-
-        if not letter_case:
-            key = key.lower()
-            author_names = [name.lower() for name in author_names]
-            title = title.lower()
-
-        if any(key in name for name in author_names) or key in title:
-            result_articles.append({
-                'author': article['author'],
-                'title': article['title'],
-                'year': article['year']
-            })
-
-    return result_articles
-
-
-# Пример вызова
-articles_dict = [
-    {
-        "title": "Endless ocean waters.",
-        "author": "Jhon Stark",
-        "year": 2019,
-    },
-    {
-        "title": "Oceans of other planets are full of silver",
-        "author": "Artur Clark",
-        "year": 2020,
-    },
-    {
-        "title": "An ocean that cannot be crossed.",
-        "author": "Silver Name",
-        "year": 2021,
-    },
-    {
-        "title": "The ocean that you love.",
-        "author": "Golden Gun",
-        "year": 2021,
-    },
-]
-
-key_to_find = "Ocean"
-found_articles = find_articles(key_to_find, letter_case=True)
-print(found_articles)
+for phone in phone_numbers:
+    sanitized_number = sanitize_phone_number(phone.strip())  # теперь используем strip()
+    if sanitized_number:
+        print(sanitized_number)
+    else:
+        print(f"Некорректный номер: {phone}")
