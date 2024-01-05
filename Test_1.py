@@ -1,13 +1,18 @@
-def is_equal_string(utf8_string, utf16_string):
-    # Декодування рядків у відповідних кодуваннях
-    decoded_utf8 = utf8_string.decode('utf-8')
-    decoded_utf16 = utf16_string.decode('utf-16')
+def save_credentials_users(path, users_info):
+    try:
+        # Відкриття файлу у бінарному режимі для запису
+        with open(path, 'wb') as file:
+            # Ітерація по кожному користувачеві в словнику
+            for username, password in users_info.items():
+                # Створення рядка у вигляді username:password та конвертація його в байти
+                user_credentials = f"{username}:{password}\n".encode('utf-8')
+                # Запис у файл
+                file.write(user_credentials)
 
-    # Порівняння декодованих рядків
-    return decoded_utf8 == decoded_utf16
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 # Приклад використання
-utf8_str = b'This is a UTF-8 string'
-utf16_str = b'\xff\xfeT\x00h\x00i\x00s\x00 \x00i\x00s\x00 \x00a\x00 \x00U\x00T\x00F\x00-\x008\x00 \x00s\x00t\x00r\x00i\x00n\x00g\x00\x00\x00'
-result = is_equal_string(utf8_str, utf16_str)
-print(result)
+users_data = {'andry': 'uyro18890D', 'steve': 'oppjM13LL9e'}
+file_path = "шлях_до_вихідного_файлу.bin"
+save_credentials_users(file_path, users_data)
