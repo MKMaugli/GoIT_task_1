@@ -1,11 +1,18 @@
-def amount_payment(payments):
-    total_payment = 0
-    for payment in payments:
-        if payment > 0:
-            total_payment += payment
-    return total_payment
+def prepare_data(data):
+    if len(data) < 2:
+        # Якщо у списку менше двох елементів, немає необхідності видаляти екстремальні значення.
+        return data
+    
+    # Видалення найбільшого та найменшого значень.
+    data.remove(max(data))
+    data.remove(min(data))
+    
+    # Сортування списку в порядку зростання.
+    sorted_data = sorted(data)
+    
+    return sorted_data
 
 # Приклад використання:
-payments_list = [100, -50, 30, -20, 10]
-result = amount_payment(payments_list)
-print(f"Сума платежів наприкінці місяця: {result}")
+input_data = [4, 7, 2, 10, 5, 1]
+result = prepare_data(input_data)
+print("Змінений список:", result)
