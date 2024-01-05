@@ -1,17 +1,26 @@
-def write_employees_to_file(employee_list, path):
-    # Відкриття файлу за вказаним шляхом у режимі "w"
-    file = open(path, 'w')
+def read_employees_from_file(path):
+    # Відкриття файлу за вказаним шляхом у режимі "r"
+    file = open(path, 'r')
 
-    # Проходження по кожному відділу та кожному співробітнику
-    for department_employees in employee_list:
-        for employee_info in department_employees:
-            # Запис рядка співробітника у файл та додавання нового рядка
-            file.write(f"{employee_info}\n")
+    # Ініціалізація списку співробітників
+    employees_list = []
+
+    # Читання кожного рядка з файлу
+    line = file.readline()
+    while line:
+        # Додавання рядка без символу кінця рядка до списку
+        employees_list.append(line.strip())
+
+        # Читання наступного рядка
+        line = file.readline()
 
     # Закриття файлу
     file.close()
 
+    # Повернення списку співробітників
+    return employees_list
+
 # Приклад використання
-employees_data = [['Robert Stivenson,28', 'Alex Denver,30'], ['Drake Mikelsson,19']]
 file_path = "шлях_до_файлу.txt"
-write_employees_to_file(employees_data, file_path)
+employees_data = read_employees_from_file(file_path)
+print(employees_data)
