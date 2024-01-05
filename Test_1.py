@@ -1,20 +1,26 @@
-def formatted_numbers():
-    result = []
+import re
 
-    header = "| decimal  |   hex    |  binary  |"
-    format_str = "|{:<10}|{:^10}|{:>10}|"
+def find_word(text, word):
+    result = {'result': False, 'first_index': None, 'last_index': None, 'search_string': word, 'string': text}
+    
+    match = re.search(re.escape(word), text)
 
-    result.append(header)
-
-    for num in range(16):
-        decimal = num
-        hex_num = hex(num)[2:]
-        binary = bin(num)[2:]
-        formatted_line = format_str.format(decimal, hex_num, binary)
-        result.append(formatted_line)
+    if match:
+        result['result'] = True
+        result['first_index'] = match.start()
+        result['last_index'] = match.end()
+        result['search_string'] = text[result['first_index']:result['last_index']]
 
     return result
 
-# Виведемо результат
-for el in formatted_numbers():
-    print(el)
+# Пример использования
+result1 = find_word(
+    "Guido van Rossum began working on Python in the late 1980s, as a successor to the ABC programming language, and first released it in 1991 as Python 0.9.0.",
+    "Python")
+
+result2 = find_word(
+    "Guido van Rossum began working on Python in the late 1980s, as a successor to the ABC programming language, and first released it in 1991 as Python 0.9.0.",
+    "python")
+
+print(result1)
+print(result2)
