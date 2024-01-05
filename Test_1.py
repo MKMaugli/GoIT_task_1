@@ -1,14 +1,17 @@
-def lookup_key(dictionary, value):
-    keys_list = [key for key, val in dictionary.items() if val == value]
-    return keys_list
+def split_list(scores):
+    if not scores:
+        # Якщо список порожній, повертаємо два порожні списки.
+        return [], []
+
+    average_score = sum(scores) / len(scores)
+    lower_half = [score for score in scores if score <= average_score]
+    upper_half = [score for score in scores if score > average_score]
+
+    return lower_half, upper_half
 
 # Приклад використання:
-sample_dict = {"a": 1, "b": 2, "c": 1, "d": 3}
-search_value = 1
+student_scores = [75, 88, 92, 60, 78, 85, 95]
+lower, upper = split_list(student_scores)
 
-result_keys = lookup_key(sample_dict, search_value)
-
-if result_keys:
-    print(f"Знайдені ключі за значенням {search_value}: {result_keys}")
-else:
-    print(f"Не знайдено жодного ключа за значенням {search_value}.")
+print("Нижня половина:", lower)
+print("Верхня половина:", upper)
