@@ -1,23 +1,29 @@
-import base64
+import shutil
 
-def encode_data_to_base64(data):
-    # Створення нового списку для збереження закодованих пар username:password
-    encoded_list = []
+def create_backup(path, file_name, employee_residence):
+    try:
+        # Збереження даних словника у бінарний файл
+        with open(f"{path}/{file_name}", 'wb') as file:
+            for name, country in employee_residence.items():
+                # Запис пари ім'я-країна у бінарний файл
+                line = f"{name} {country}\n"
+                file.write(line.encode('utf-8'))
 
-    # Ітерація по кожному елементу у вхідному списку
-    for item in data:
-        # Розділення пари username:password
-        username, password = item.split(':')
+        # Створення архіву
+        shutil.make_archive(f"backup_{path}", 'zip', path)
 
-        # Кодування пари у форматі Base64
-        encoded_pair = base64.b64encode(f"{username}:{password}".encode('utf-8')).decode('utf-8')
+        # Повернення шляху до створеного архіву
+        return f"{path}/backup_folder.zip"
 
-        # Додавання закодованої пари у новий список
-        encoded_list.append(encoded_pair)
-
-    return encoded_list
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
 
 # Приклад використання
-credentials_list = ['andry:uyro18890D', 'steve:oppjM13LL9e']
-result = encode_data_to_base64(credentials_list)
-print(result)
+employee_residence_data = {'Michael': 'Canada', 'John': 'USA', 'Liza': 'Australia'}
+backup_path = "шлях_до_теки"
+backup_file_name = "backup_data.bin"
+result = create_backup(backup_path, backup_file_name, employee_residence_data)
+
+if result:
+    print(f"Backup created successfully at: {result}")
