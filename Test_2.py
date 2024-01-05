@@ -1,9 +1,9 @@
-def fibonacci_recursive(n):
-    if n <= 0:
-        return 0
-    elif n == 1 or n == 2:
-        return 1
+data = [4, 3, 7.5, -2]
+sum = 0
+for value in data:
+    if data > 0:
+        sum = sum + value
     else:
-        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
- 
-print(fibonacci_recursive(7))
+        sum = sum
+        
+print(sum)  # 14.5
