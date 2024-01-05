@@ -1,25 +1,16 @@
-def is_spam_words(text, spam_words, space_around=False):
-    # Зводимо весь текст до нижнього регістру
-    normalized_text = text.lower()
+CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
+LATIN_SYMBOLS = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
+                 "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je", "i", "ji", "g", " ")
 
-    for spam_word in spam_words:
-        # Зводимо слово до нижнього регістру
-        normalized_spam_word = spam_word.lower()
+TRANS = {}
 
-        if space_around:
-            # Шукаємо слово, яке повинно бути окремим в тексті
-            if f" {normalized_spam_word} " in f" {normalized_text} ":
-                return True
-        else:
-            # Шукаємо слово взагалі
-            if normalized_spam_word in normalized_text:
-                return True
+for c, l in zip(CYRILLIC_SYMBOLS, LATIN_SYMBOLS):
+    TRANS[ord(c)] = l
+    TRANS[ord(c.upper())] = l.upper()
 
-    return False
+def translate(name):
+    return name.translate(TRANS)
 
-# Приклади використання
-print(is_spam_words("У діда в руках молоток.", ["лоток"]))  # True
-print(is_spam_words("У діда в руках молоток.", ["лоток"], True))  # False
-
-print(is_spam_words("У кота порожній лоток.", ["лоток"]))  # True
-print(is_spam_words("У кота порожній лоток.", ["лоток"], True))  # True
+# Приклад використання
+print(translate("Дмитро Короб"))  # Dmitro Korob
+print(translate("Олекса Івасюк"))  # Oleksa Ivasyuk
