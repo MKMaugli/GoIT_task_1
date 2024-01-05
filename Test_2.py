@@ -1,25 +1,11 @@
-grades = {"A": 5, "B": 5, "C": 4, "D": 3, "E": 3, "FX": 2, "F": 1}
+import re
 
-def formatted_grades(students):
-    formatted_list = []
-
-    # Заголовок таблиці
-    header = "| {:<4} | {:<10} | {:^5} | {:^5} |".format("ID", "Name", "Grade", "Points")
-    formatted_list.append("-" * len(header))
-    formatted_list.append(header)
-    formatted_list.append("-" * len(header))
-
-    # Форматування даних для кожного студента
-    for idx, (name, grade) in enumerate(students.items(), start=1):
-        points = grades.get(grade, 0)
-        row = "| {:>4} | {:<10} | {:^5} | {:^5} |".format(idx, name, grade, points)
-        formatted_list.append(row)
-
-    formatted_list.append("-" * len(header))
-    return formatted_list
+def find_all_phones(text):
+    pattern = r"\+380\(\d{2}\)\d{3}-(?:\d{1}-\d{3}|\d{2}-\d{2})"
+    result = re.findall(pattern, text)
+    return result
 
 # Приклад використання
-students = {"Nick": "A", "Olga": "B", "Mike": "FX", "Anna": "C"}
-
-for el in formatted_grades(students):
-    print(el)
+text = "Irma +380(67)777-7-771 second +380(67)777-77-77 aloha a@test.com abc111@test.com.net +380(67)111-777-777+380(67)777-77-787"
+phones = find_all_phones(text)
+print(phones)

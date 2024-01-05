@@ -1,13 +1,11 @@
 import re
 
-def find_all_emails(text):
-    pattern = r"[a-zA-Z]{1}[\w\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}"
-
+def find_all_phones(text):
+    pattern = r"\+380\(\d{2}\)\d{3}-(?:\d{1}-\d{3}|\d{2}-\d{2})"
     result = re.findall(pattern, text)
     return result
 
-
 # Приклад використання
-text = "Ima.Fool@iana.org Ima.Fool@iana.o 1Fool@iana.org first_last@iana.org first.middle.last@iana.or a@test.com abc111@test.com.net"
-emails = find_all_emails(text)
-print(emails)
+text = "Irma +380(67)777-7-771 second +380(67)777-77-77 aloha a@test.com abc111@test.com.net +380(67)111-777-777+380(67)777-77-787"
+phones = find_all_phones(text)
+print(phones)
