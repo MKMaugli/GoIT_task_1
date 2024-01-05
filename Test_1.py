@@ -1,18 +1,14 @@
-def prepare_data(data):
-    if len(data) < 2:
-        # Якщо у списку менше двох елементів, немає необхідності видаляти екстремальні значення.
-        return data
-    
-    # Видалення найбільшого та найменшого значень.
-    data.remove(max(data))
-    data.remove(min(data))
-    
-    # Сортування списку в порядку зростання.
-    sorted_data = sorted(data)
-    
-    return sorted_data
+def format_ingredients(ingredients_list):
+    if not ingredients_list:
+        return ""
+
+    if len(ingredients_list) == 1:
+        return ingredients_list[0]
+
+    formatted_ingredients = ", ".join(ingredients_list[:-1]) + " and " + ingredients_list[-1]
+    return formatted_ingredients
 
 # Приклад використання:
-input_data = [4, 7, 2, 10, 5, 1]
-result = prepare_data(input_data)
-print("Змінений список:", result)
+ingredients = ["2 eggs", "1 liter sugar", "1 tsp salt", "vinegar"]
+formatted_result = format_ingredients(ingredients)
+print("Форматовані інгредієнти:", formatted_result)
