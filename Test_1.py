@@ -1,28 +1,17 @@
-def total_salary(path):
-    total = 0.0
+def write_employees_to_file(employee_list, path):
+    # Відкриття файлу за вказаним шляхом у режимі "w"
+    file = open(path, 'w')
 
-    # Відкриття файлу за вказаним шляхом
-    file = open(path, 'r')
-
-    # Читання рядка за рядком
-    line = file.readline()
-    while line:
-        # Розбиття рядка на ім'я та зарплату за допомогою коми
-        name, salary_str = line.strip().split(',')
-
-        # Перетворення зарплати в число та додавання до загальної суми
-        total += float(salary_str)
-
-        # Читання наступного рядка
-        line = file.readline()
+    # Проходження по кожному відділу та кожному співробітнику
+    for department_employees in employee_list:
+        for employee_info in department_employees:
+            # Запис рядка співробітника у файл та додавання нового рядка
+            file.write(f"{employee_info}\n")
 
     # Закриття файлу
     file.close()
 
-    # Повернення загальної суми у вигляді float
-    return total
-
 # Приклад використання
+employees_data = [['Robert Stivenson,28', 'Alex Denver,30'], ['Drake Mikelsson,19']]
 file_path = "шлях_до_файлу.txt"
-total_salary_value = total_salary(file_path)
-print(f"Загальна заробітна плата: {total_salary_value}")
+write_employees_to_file(employees_data, file_path)
