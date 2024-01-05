@@ -1,18 +1,19 @@
-def save_credentials_users(path, users_info):
+def get_credentials_users(path):
     try:
-        # Відкриття файлу у бінарному режимі для запису
-        with open(path, 'wb') as file:
-            # Ітерація по кожному користувачеві в словнику
-            for username, password in users_info.items():
-                # Створення рядка у вигляді username:password та конвертація його в байти
-                user_credentials = f"{username}:{password}\n".encode('utf-8')
-                # Запис у файл
-                file.write(user_credentials)
+        # Відкриття файлу у бінарному режимі для читання
+        with open(path, 'rb') as file:
+            # Читання вмісту файлу та конвертація байтів у рядки
+            content = [line.decode('utf-8').strip() for line in file]
+
+        return content
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None
 
 # Приклад використання
-users_data = {'andry': 'uyro18890D', 'steve': 'oppjM13LL9e'}
-file_path = "шлях_до_вихідного_файлу.bin"
-save_credentials_users(file_path, users_data)
+file_path = "шлях_до_вхідного_файлу.bin"
+result = get_credentials_users(file_path)
+
+if result:
+    print(result)
