@@ -1,11 +1,15 @@
 import re
 
-def find_all_words(text, word):
-    pattern = re.compile(r'\b{}\b'.format(re.escape(word)), flags=re.IGNORECASE)
-    matches = pattern.findall(text)
+def replace_spam_words(text, spam_words):
+    for spam_word in spam_words:
+        pattern = re.compile(r'\b{}\b'.format(re.escape(spam_word)), flags=re.IGNORECASE)
+        replacement = '*' * len(spam_word)
+        text = pattern.sub(replacement, text)
 
-    return matches if matches else [word]
+    return text
 
 # Приклад використання
-result = find_all_words('Guido van Rossum began working on Python in the late 1980s, as a successor to the ABC programming PYTHOn language, and first released pYthoN it in 1991 as Python 0.9.0. pythOn ', 'Python')
+spam_words = ['bad', 'word', 'spam']
+text = "This is a bad Word, and it contains spam."
+result = replace_spam_words(text, spam_words)
 print(result)
