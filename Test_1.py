@@ -1,15 +1,13 @@
 import re
 
-def replace_spam_words(text, spam_words):
-    for spam_word in spam_words:
-        pattern = re.compile(r'\b{}\b'.format(re.escape(spam_word)), flags=re.IGNORECASE)
-        replacement = '*' * len(spam_word)
-        text = pattern.sub(replacement, text)
+def find_all_emails(text):
+    pattern = r"[a-zA-Z]{1}[\w\.]+@[a-zA-z]+\.[a-zA-z]{2,}"
 
-    return text
+    result = re.findall(pattern, text)
+    return result
+
 
 # Приклад використання
-spam_words = ['bad', 'word', 'spam']
-text = "This is a bad Word, and it contains spam."
-result = replace_spam_words(text, spam_words)
-print(result)
+text = "Ima.Fool@iana.org Ima.Fool@iana.o 1Fool@iana.org first_last@iana.org first.middle.last@iana.or a@test.com abc111@test.com.net"
+emails = find_all_emails(text)
+print(emails)
