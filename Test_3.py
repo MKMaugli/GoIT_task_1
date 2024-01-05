@@ -1,16 +1,17 @@
-def game(lists, power):
-    for sublist in lists:
-        for energy in sublist:
-            if energy <= power:
-                power += energy
-            else:
-                break
+grades = {"A": 5, "B": 5, "C": 4, "D": 3, "E": 3, "FX": 2, "F": 1}
 
-    return power
+def formatted_grades(students):
+    formatted_list = []
 
-# Приклад використання:
-example_list = [[1, 1, 5, 10], [10, 2], [1, 1, 1]]
-initial_power = 1
+    for idx, (name, grade) in enumerate(students.items(), start=1):
+        points = grades.get(grade, 0)
+        row = "{:>2}|{:<8}|{:^4}|{:^4}".format(idx, name, grade, points)
+        formatted_list.append(row)
 
-result_energy = game(example_list, initial_power)
-print(f"Загальна енергія гравця: {result_energy}")
+    return formatted_list
+
+# Приклад використання
+students = {"Nick": "A", "Olga": "B", "Mike": "FX", "Anna": "C"}
+
+for el in formatted_grades(students):
+    print(el)

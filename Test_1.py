@@ -1,16 +1,17 @@
-CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
-LATIN_SYMBOLS = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
-                 "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je", "i", "ji", "g", " ")
+grades = {"A": 5, "B": 5, "C": 4, "D": 3, "E": 3, "FX": 2, "F": 1}
 
-TRANS = {}
+def formatted_grades(students):
+    result = []
 
-for c, l in zip(CYRILLIC_SYMBOLS, LATIN_SYMBOLS):
-    TRANS[ord(c)] = l
-    TRANS[ord(c.upper())] = l.upper()
+    for i, (name, grade) in enumerate(students.items(), start=1):
+        points = grades.get(grade, 0)
+        formatted_line = "{:>4}|{:<10}|{:^5}|{:^5}".format(i, name, grade, points)
+        result.append(formatted_line)
 
-def translate(name):
-    return name.translate(TRANS)
+    return result
 
 # Приклад використання
-print(translate("Дмитро Короб"))  # Dmitro Korob
-print(translate("Олекса Івасюк"))  # Oleksa Ivasyuk
+students = {"Nick": "A", "Olga": "B", "Mike": "FX", "Anna": "C"}
+
+for el in formatted_grades(students):
+    print(el)

@@ -1,37 +1,25 @@
-from pathlib import Path
+grades = {"A": 5, "B": 5, "C": 4, "D": 3, "E": 3, "FX": 2, "F": 1}
 
-def parse_folder(path):
-    files = []
-    folders = []
-    
-    directory_path = Path(path)
+def formatted_grades(students):
+    formatted_list = []
 
-    if not directory_path.is_dir():
-        print(f"Шлях {path} не вказує на теку або такий шлях не існує.")
-        return files, folders
+    # Заголовок таблиці
+    header = "| {:<4} | {:<10} | {:^5} | {:^5} |".format("ID", "Name", "Grade", "Points")
+    formatted_list.append("-" * len(header))
+    formatted_list.append(header)
+    formatted_list.append("-" * len(header))
 
-    for item in directory_path.iterdir():
-        if item.is_file():
-            files.append(item)
-        elif item.is_dir():
-            folders.append(item)
+    # Форматування даних для кожного студента
+    for idx, (name, grade) in enumerate(students.items(), start=1):
+        points = grades.get(grade, 0)
+        row = "| {:>4} | {:<10} | {:^5} | {:^5} |".format(idx, name, grade, points)
+        formatted_list.append(row)
 
-    return files, folders
+    formatted_list.append("-" * len(header))
+    return formatted_list
 
-# Приклад використання:
-folder_to_parse = '/path/to/parse'  # Замініть на шлях, де ви хочете аналізувати теку
+# Приклад використання
+students = {"Nick": "A", "Olga": "B", "Mike": "FX", "Anna": "C"}
 
-result_files, result_folders = parse_folder(folder_to_parse)
-
-if result_files:
-    print("Знайдені файли:")
-    for file_path in result_files:
-        print(file_path)
-
-if result_folders:
-    print("Знайдені теки:")
-    for folder_path in result_folders:
-        print(folder_path)
-
-if not result_files and not result_folders:
-    print(f"В {folder_to_parse} не знайдено файли або теки.")
+for el in formatted_grades(students):
+    print(el)
