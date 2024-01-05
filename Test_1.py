@@ -1,11 +1,12 @@
 import re
 
-def find_all_phones(text):
-    pattern = r"\+380\(\d{2}\)\d{3}-(?:\d{1}-\d{3}|\d{2}-\d{2})"
-    result = re.findall(pattern, text)
+def find_all_links(text):
+    pattern = r'https?://(?:www\.)?[a-zA-Z][a-zA-Z0-9]+\.[a-zA-Z]{2,}(?=\s|$)'
+    result = [match.group() for match in re.finditer(pattern, text)]
     return result
 
+
 # Приклад використання
-text = "Irma +380(67)777-7-771 second +380(67)777-77-77 aloha a@test.com abc111@test.com.net +380(67)111-777-777+380(67)777-77-787"
-phones = find_all_phones(text)
-print(phones)
+text = "The main search site in the world is https://www.google.com The main social network for people in the world is https://www.facebook.com But programmers have their own social network http://github.com There they share their code. some url to check https://www..facebook.com www.facebook.com "
+links = find_all_links(text)
+print(links)
