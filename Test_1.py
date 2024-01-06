@@ -1,10 +1,6 @@
-from collections import UserDict
+from collections import UserList
 
 
-class LookUpKeyDict(UserDict):
-    def lookup_key(self, value):
-        res = []
-        for key, val in self.data.items():
-            if val == value:
-                res.append(key)
-        return res
+class AmountPaymentList(UserList):
+    def amount_payment(self):
+        return sum(filter(lambda x: x > 0, self.data))
