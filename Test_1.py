@@ -1,24 +1,24 @@
-from datetime import date
+from datetime import datetime
 
-def get_days_in_month(month, year):
-    # Перевіряємо чи місяць коректний
-    if month < 1 or month > 12:
-        raise ValueError("Некоректний номер місяця. Введіть число від 1 до 12.")
+def get_str_date(date):
+    # Перетворюємо рядок у форматі ISO в об'єкт datetime
+    datetime_obj = datetime.fromisoformat(date.replace('Z', '+00:00'))
 
-    # Визначаємо кількість днів у місяці
-    if month in {1, 3, 5, 7, 8, 10, 12}:
-        return 31
-    elif month in {4, 6, 9, 11}:
-        return 30
-    else:
-        # Перевіряємо чи рік високосний
-        if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
-            return 29  # Високосний рік
-        else:
-            return 28  # Звичайний рік
+    # Отримуємо назву дня тижня
+    day_of_week = datetime_obj.strftime('%A')
+
+    # Отримуємо число, місяць та рік
+    day = datetime_obj.day
+    month = datetime_obj.strftime('%B')
+    year = datetime_obj.year
+
+    # Додаємо "0" спереду для чисел від 1 до 9
+    formatted_day = f'{day:02}'
+
+    # Повертаємо перетворену дату у вказаному форматі
+    return f'{day_of_week} {formatted_day} {month} {year}'
 
 # Приклад використання:
-month = 2
-year = 2024
-result = get_days_in_month(month, year)
-print(f"У {month}-му місяці {year} року {result} днів.")
+input_date = '2021-03-03 17:12:40.478Z'
+result = get_str_date(input_date)
+print(result)
