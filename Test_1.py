@@ -1,6 +1,6 @@
 from setuptools import setup
 
-def do_setup(args_dict, requires):
+def do_setup(args_dict, requires, entry_points):
     setup(
         name=args_dict['name'],
         version=args_dict['version'],
@@ -10,7 +10,8 @@ def do_setup(args_dict, requires):
         author_email=args_dict['author_email'],
         license=args_dict['license'],
         packages=args_dict['packages'],
-        install_requires=requires  # Добавлен новый параметр
+        install_requires=requires,
+        entry_points=entry_points  # Добавлен новый параметр
     )
 
 # Пример использования:
@@ -27,4 +28,11 @@ my_args_dict = {
 
 my_requires = ["dependency1", "dependency2"]
 
-do_setup(my_args_dict, my_requires)
+my_entry_points = {
+    'console_scripts': [
+        'script_name = module_name:function_name',
+        # Добавьте другие точки входа при необходимости
+    ]
+}
+
+do_setup(my_args_dict, my_requires, my_entry_points)
