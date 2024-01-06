@@ -1,15 +1,18 @@
-def data_preparation(list_data):
-    merged_list = []
+import re
 
-    for sublist in list_data:
-        if len(sublist) > 2:
-            sublist.remove(max(sublist))
-            sublist.remove(min(sublist))
-        merged_list.extend(sublist)
+def token_parser(s):
+    # Визначимо шаблон для пошуку чисел, операторів і дужок
+    pattern = r'\d+|\+|-|\*|/|\(|\)'  # \d+ - послідовність цифр, оператори, дужки
+    
+    # Використаємо findall для знаходження всіх лексем у рядку
+    tokens = re.findall(pattern, s)
 
-    return sorted(merged_list, reverse=True)
+    # Видалимо можливі прогалини з лексем
+    tokens = [token.strip() for token in tokens if token.strip()]
 
-# Пример использования:
-list_data = [[1, 2, 3], [3, 4], [5, 6]]
-result = data_preparation(list_data)
+    return tokens
+
+# Приклад використання:
+expression = "2+ 34-5 * 3"
+result = token_parser(expression)
 print(result)
