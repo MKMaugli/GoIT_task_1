@@ -20,8 +20,11 @@ class Contacts:
         Contacts.current_id += 1
 
     def get_contact_by_id(self, id):
-        res = None
-        for i in filter(lambda x: x['id'] == id, self.list_contacts()):
-            if i:
-                res = i
-        return res
+        result = list(filter(lambda contact: contact.get("id") == id, self.contacts))
+        return result[0] if len(result) > 0 else None
+
+    def remove_contacts(self, id):
+        for i in range(len(self.contacts)):
+            if self.contacts[i]['id'] == id:
+                del self.contacts[i]
+                break
