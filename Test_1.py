@@ -43,5 +43,10 @@ class Vector:
         if index == 1:
             return self.coordinates.y
 
+    def __call__(self, value=None):
+        x = self.coordinates.x * value if value != None else self.coordinates.x
+        y = self.coordinates.y * value if value != None else self.coordinates.y
+        return (x, y)
+
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
