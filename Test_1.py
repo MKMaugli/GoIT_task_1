@@ -1,18 +1,13 @@
-import re
+def all_sub_lists(data):
+    result = [[]]
 
-def token_parser(s):
-    # Визначимо шаблон для пошуку чисел, операторів і дужок
-    pattern = r'\d+|\+|-|\*|/|\(|\)'  # \d+ - послідовність цифр, оператори, дужки
-    
-    # Використаємо findall для знаходження всіх лексем у рядку
-    tokens = re.findall(pattern, s)
+    for i in range(len(data)):
+        for j in range(i + 1, len(data) + 1):
+            result.append(data[i:j])
 
-    # Видалимо можливі прогалини з лексем
-    tokens = [token.strip() for token in tokens if token.strip()]
-
-    return tokens
+    return sorted(result, key=len)
 
 # Приклад використання:
-expression = "2+ 34-5 * 3"
-result = token_parser(expression)
+data = [4, 6, 1, 3]
+result = all_sub_lists(data)
 print(result)
