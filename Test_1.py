@@ -1,17 +1,15 @@
-def file_operations(path, additional_info, start_pos, count_chars):
+def get_employees_by_profession(path, profession):
     try:
-        # Відкриваємо файл для додавання інформації
-        with open(path, 'a') as file:
-            # Додаємо додаткову інформацію
-            file.write(additional_info)
-
-        # Відкриваємо той самий файл для читання
+        # Відкриваємо файл для читання
         with open(path, 'r') as file:
-            # Переміщуємо курсор на позицію start_pos
-            file.seek(start_pos)
-            
-            # Зчитуємо рядок довжиною count_chars
-            result_str = file.read(count_chars)
+            # Зчитуємо рядки з файлу
+            lines = file.readlines()
+
+            # Знаходимо усі рядки, де є вказана profession
+            matching_lines = [line.strip().split(' ', 1)[0] for line in lines if profession in line]
+
+            # Об'єднуємо всі імена в один рядок
+            result_str = ' '.join(matching_lines)
 
         return result_str
 
@@ -20,10 +18,8 @@ def file_operations(path, additional_info, start_pos, count_chars):
         return None
 
 # Приклад використання:
-path = "example.txt"
-additional_info = "Additional Information"
-start_pos = 5
-count_chars = 10
+path = "employees.txt"
+profession = "cook"
 
-result = file_operations(path, additional_info, start_pos, count_chars)
+result = get_employees_by_profession(path, profession)
 print(result)
