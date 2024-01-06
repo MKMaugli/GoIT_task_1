@@ -1,24 +1,10 @@
-def to_indexed(path, output_path):
-    try:
-        # Відкриваємо вхідний файл для читання
-        with open(path, 'r') as source:
-            # Відкриваємо вихідний файл для запису
-            with open(output_path, 'w') as output:
-                # Зчитуємо всі рядки з вхідного файлу
-                lines = source.readlines()
+def flatten(data):
+    if not data:
+        return []
 
-                # Записуємо змінений вміст у вихідний файл
-                for i, line in enumerate(lines):
-                    output.write(f"{i}: {line}")
+    if isinstance(data[0], list):
+        first_list = flatten(data[0])
+        second_list = flatten(data[1:])
+        return first_list + second_list
 
-        print("Операція успішно виконана.")
-
-    except Exception as e:
-        print(f"Помилка: {e}")
-
-
-
-# Приклад використання:
-source_file = "input.txt"
-output_file = "output.txt"
-to_indexed(source_file, output_file)
+    return [data[0]] + flatten(data[1:])
