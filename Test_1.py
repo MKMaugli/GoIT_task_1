@@ -1,30 +1,25 @@
-import csv
+import pickle
 
+class Person:
+    def __init__(self, name: str, email: str, phone: str, favorite: bool):
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.favorite = favorite
+       
+class Contacts:
+    def __init__(self, filename: str, contacts: list[Person] = None):
+        self.filename = filename
+        self.contacts = contacts
+        
+        if contacts is None:
+            contacts = []
 
-def write_contacts_to_file(filename, contacts):
-    print(contacts)
-    with open(filename, 'w', newline='') as cw:
-        titles = []
-        for title in contacts[0].keys():
-            titles.append(title)
-        field_title = titles
-        writer = csv.DictWriter(cw, fieldnames = field_title)
-        writer.writeheader()
-        for element in contacts:
-            writer.writerow(element)
-    
-
-def read_contacts_from_file(filename):
-    result = []
-    with open(filename, 'r', newline='') as cr:
-        reader = csv.DictReader(cr)
-        for row in reader:
-            dict_item = {}
-            for key, val in row.items():
-                if val == 'True':
-                    val = True
-                elif val == 'False':
-                    val = False
-                dict_item.update({key: val})
-            result.append(dict_item)
-    return result
+    def save_to_file(self):
+        with open(self.filename, "wb") as wp:
+            pickle.dump(self, wp)
+        
+    def read_from_file(self):
+        with open(self.filename, "rb") as rp:
+            upnask = pickle.load(rp)
+        return upnask
