@@ -1,5 +1,5 @@
-def normal_name(list_name):
+def get_emails(list_contacts):
     res = []
-    for i in map(lambda v: v.capitalize(), list_name):
+    for i in map(lambda e: e['email'], list_contacts):
         res.append(i)
     return res
