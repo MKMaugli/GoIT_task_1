@@ -1,5 +1,5 @@
-def positive_values(list_payment):
+def get_favorites(contacts):
     res = []
-    for i in filter(lambda p: p > 0, list_payment):
+    for i in filter(lambda c: c["favorite"] == True, contacts):
         res.append(i)
     return res
