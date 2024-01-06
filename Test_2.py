@@ -1,11 +1,30 @@
-import re
+def solve_riddle(riddle, word_length, start_letter, reverse=False):
+    found_word = None
 
-def find_all_phones(text):
-    pattern = r"\+380\(\d{2}\)\d{3}-(?:\d{1}-\d{3}|\d{2}-\d{2})"
-    result = re.findall(pattern, text)
-    return result
+    if not isinstance(riddle, str):
+        raise TypeError("riddle must be a string")
+    if not isinstance(word_length, int) or word_length <= 0:
+        raise ValueError("word_length must be a positive integer")
+    if not isinstance(start_letter, str):
+        raise TypeError("start_letter must be a string")
 
-# Приклад використання
-text = "Irma +380(67)777-7-771 second +380(67)777-77-77 aloha a@test.com abc111@test.com.net +380(67)111-777-777+380(67)777-77-787"
-phones = find_all_phones(text)
-print(phones)
+    if reverse:
+        for i in range(len(riddle) - 1, -word_length - 1, -1):
+            if riddle[i] == start_letter:
+                found_word = riddle[i:i + word_length]
+                break
+    else:
+        for i in range(len(riddle)):
+            if riddle[i] == start_letter:
+                found_word = riddle[i:i + word_length]
+                break
+    return found_word
+
+# Приклад використання:
+riddle_str = "mi1powperet4"
+word_length = 3
+start_letter = "r"
+reverse = True
+
+result = solve_riddle(riddle_str, word_length, start_letter, reverse)
+print(result)
