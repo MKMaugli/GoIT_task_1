@@ -1,16 +1,20 @@
-from random import randrange
+import random
 
-def get_numbers_ticket(min_val, max_val, quantity):
-    # Перевіряємо умови обмежень на параметри функції
-    if min_val < 1 or max_val > 1000 or min_val >= quantity or quantity >= max_val:
+def get_random_winners(quantity, participants):
+    if quantity > len(participants):
         return []
+    my_list = list(participants.keys())
+    random.shuffle(my_list)
+    return(random.sample(my_list, k=quantity))
 
-    # Генеруємо та повертаємо випадковий набір чисел без дублікатів
-    return sorted([randrange(min_val, max_val) for _ in range(quantity)])
+# Приклад використання
+participants = {
+    "603d2cec9993c627f0982404": "test@test.com",
+    "603f79022922882d30dd7bb6": "test11@test.com",
+    "60577ce4b536f8259cc225d2": "test2@test.com",
+    "605884760742316c07eae603": "vitanlhouse@gmail.com",
+    "605b89080c318d66862db390": "elhe2013@gmail.com",
+}
 
-# Приклад використання:
-min_val = 1
-max_val = 49
-quantity = 6
-result = get_numbers_ticket(min_val, max_val, quantity)
+result = get_random_winners(2, participants)
 print(result)

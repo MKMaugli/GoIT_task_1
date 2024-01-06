@@ -1,23 +1,20 @@
-def encode(data):
-    if not data:
-        return []
+import random
 
-    result = []
-    for i in range(len(data)):
-        if i + 1 == len(data):
-            result.append(data[i])
-            break
+def get_random_winners(quantity, participants):
+    keys_list = list(participants.keys())
+    random.shuffle(keys_list)
+    winners = random.sample(keys_list, quantity)
+    
+    return winners, quantity
 
-        if data[i] == data[i + 1]:
-            result.append(data[i])
-            result.append(len(data) - i - 1)
-        else:
-            result.append(data[i])
+# Приклад використання
+participants = {
+    "603d2cec9993c627f0982404": "test@test.com",
+    "603f79022922882d30dd7bb6": "test11@test.com",
+    "60577ce4b536f8259cc225d2": "test2@test.com",
+    "605884760742316c07eae603": "vitanlhouse@gmail.com",
+    "605b89080c318d66862db390": "elhe2013@gmail.com",
+}
 
-    return result
-
-# Приклад використання:
-data = "XXXXXZXYYYYZZ"
-
-result = encode(data)
+result = get_random_winners(2, participants)
 print(result)
