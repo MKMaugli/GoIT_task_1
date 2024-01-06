@@ -1,13 +1,18 @@
 import random
 
 def get_random_winners(quantity, participants):
-    keys_list = list(participants.keys())
-    random.shuffle(keys_list)
-    winners = random.sample(keys_list, quantity)
-    
-    return winners, quantity
+    res = []
+    if quantity > len(participants):
+        return res
+    keys = []
+    for key in participants.keys():
+        keys.append(key)
 
-# Приклад використання
+    random.shuffle(keys)
+    res = random.sample(keys, k=quantity)
+    return res
+
+# Приклад використання:
 participants = {
     "603d2cec9993c627f0982404": "test@test.com",
     "603f79022922882d30dd7bb6": "test11@test.com",
@@ -16,5 +21,6 @@ participants = {
     "605b89080c318d66862db390": "elhe2013@gmail.com",
 }
 
-result = get_random_winners(2, participants)
+quantity = 2
+result = get_random_winners(quantity, participants)
 print(result)
