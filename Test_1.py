@@ -8,8 +8,14 @@ class Person:
         self.phone = phone
         self.favorite = favorite
 
-def copy_class_person(person):
-    return copy.copy(person)
+    def __copy__(self):
+        copy_obj = Person(
+            copy.copy(self.name), 
+            copy.copy(self.email), 
+            copy.copy(self.phone), 
+            copy.copy(self.favorite)
+        )
+        return copy_obj  
 
 class Contacts:
     def __init__(self, filename: str, contacts: list[Person] = None):
@@ -38,5 +44,21 @@ class Contacts:
         self.__dict__ = value
         self.is_unpacking = True
 
-def copy_class_contacts(contacts):
-    return copy.deepcopy(contacts)
+    def __copy__(self):
+        obj = Contacts(
+            copy.copy(self.filename), 
+            copy.copy(self.contacts)
+        )
+        obj.is_unpacking = copy.copy(self.is_unpacking)
+        obj.count_save = copy.copy(self.count_save)
+        return obj
+
+    def __deepcopy__(self, memo):
+        obj = Contacts(
+            copy.deepcopy(self.filename),
+            copy.deepcopy(self.contacts)
+        )
+        memo[id(obj)] = obj
+        obj.is_unpacking = copy.deepcopy(self.is_unpacking)
+        obj.count_save = copy.deepcopy(self.count_save)
+        return obj
