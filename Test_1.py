@@ -23,6 +23,9 @@ class Point:
         if (type(y) == int) or (type(y) == float):
             self.__y = y
 
+    def __str__(self):
+        return f"Point({self.x},{self.y})"
+
 
 class Vector:
     def __init__(self, coordinates: Point):
@@ -31,9 +34,14 @@ class Vector:
     def __setitem__(self, index, value):
         if index == 0:
             self.coordinates.x = value
-        else:
+        if index == 1:
             self.coordinates.y = value
 
-
     def __getitem__(self, index):
-        return self.coordinates.x if index == 0 else self.coordinates.y
+        if index == 0:
+            return self.coordinates.x
+        if index == 1:
+            return self.coordinates.y
+
+    def __str__(self):
+        return f"Vector({self.coordinates.x},{self.coordinates.y})"
