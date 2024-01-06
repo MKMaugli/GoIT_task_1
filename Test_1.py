@@ -70,3 +70,24 @@ class Vector:
 
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
+
+    def __eq__(self, vector):
+        return self.coordinates.x == vector.coordinates.x and self.coordinates.y == vector.coordinates.y
+
+    def __ne__(self, vector):
+        return self.coordinates.x != vector.coordinates.x or self.coordinates.y != vector.coordinates.y
+
+#    def __lt__(self, vector):
+#        return self.coordinates.x < vector.coordinates.x and #self.coordinates.y < vector.coordinates.y
+
+    def __lt__(self, vector):
+        return self.len() < vector.len()
+        
+    def __gt__(self, vector):
+        return self.coordinates.x > vector.coordinates.x and self.coordinates.y > vector.coordinates.y
+
+    def __le__(self, vector):
+        return self.coordinates.x <= vector.coordinates.x and self.coordinates.y <= vector.coordinates.y
+
+    def __ge__(self, vector):
+        return self.coordinates.x >= vector.coordinates.x and self.coordinates.y >= vector.coordinates.y
