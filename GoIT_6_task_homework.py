@@ -36,44 +36,49 @@ def process_folder(path, destination_path):
 
   Приймає на вхід шлях до папки та шлях до папки призначення.
   """
-
   # Створюємо папки, якщо їх немає
   for category in ["images", "video", "documents", "other"]:
     destination_folder = os.path.join(destination_path, category)
     if not os.path.exists(destination_folder):
       os.mkdir(destination_folder)
 
+  # Отримуємо розширення файлу
   for file in os.listdir(path):
     file_path = os.path.join(path, file)
     if os.path.isdir(file_path):
       # Рекурсивно обробляємо вкладені папки
       process_folder(file_path, destination_path)
     else:
-      # Визначаємо тип файлу
-      extension = file.split(".")[-1]
-      # Перейменовуємо файл
+      # Переконвертуємо назву файлу
       new_name = normalize(file)
       new_folder = category
+      extension = file.split(".")[-1]
       if extension in ARCHIVES:
         new_folder = "archives"
         category = "archives"
-      shutil.move(file_path, os.path.join(destination_path, new_folder, new_name))
+        shutil.move(file_path, os.path.join(destination_path, new_folder, new_name))
+        if extension == "7z":
+          with lzma.open(os.path.join(destination_path, "archives", file), "rb") as file_stream:
+            with rarfile.RarFile(file_stream) as rar_archive:
+              rar_archive.extractall(destination_path)
+            os.remove(os.path.join(destination_path, file))
+        else:
+          new_folder = "archives"
 
-      # Визначаємо тип файлу
-      extension = file.split(".")[-1]
+      if os.path.exists(os.path.join(destination_path, file)):
+        shutil.move(file_path, os.path.join(destination_path, new_folder, new_name))
 
-      # Переміщуємо файл у відповідну папку
-      if extension in ARCHIVES:
-        # Для 7z архівів потрібно використовувати модулі lzma і rarfile
-        with rarfile.RarFile(os.path.join(destination_path, 'archives', file)) as archive:
-          rar_archive.extractall(destination_path)
-          os.remove(os.path.join(destination_path, file))
+      # Для 7z архівів потрібно використовувати модулі lzma і rarfile
+      with rarfile.RarFile(os.path.join(destination_path, file)) as archive:
+        archive.extractall(destination_path)
+        os.remove(os.path.join(destination_path, file))
 
       # Файл з невідомим розширенням
-      else:
+      if extension not in ARCHIVES:
         # Переміщуємо файл у папку other
         destination_folder = os.path.join(destination_path, "other")
         shutil.move(os.path.join(path, new_name), destination_folder)
+
 
 if __name__ == "__main__":
   # Вказуємо папку, з якої потрібно перенести файли

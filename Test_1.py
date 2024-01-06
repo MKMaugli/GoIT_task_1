@@ -1,15 +1,18 @@
-import shutil
+from setuptools import setup
 
-def unpack(archive_path, path_to_unpack):
-    try:
-        # Розпакування архіву за допомогою shutil.unpack_archive
-        shutil.unpack_archive(archive_path, path_to_unpack)
-        print(f"Archive successfully unpacked to: {path_to_unpack}")
+def do_setup(args_dict):
+    setup(**args_dict)
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+# Пример использования:
+my_args_dict = {
+    "name": "useful",
+    "version": "1",
+    "description": "Very useful code",
+    "url": "http://github.com/dummy_user/useful",
+    "author": "Flying Circus",
+    "author_email": "flyingcircus@example.com",
+    "license": "MIT",
+    "packages": ["useful"],
+}
 
-# Приклад використання
-archive_path = "шлях_до_архіву/backup_folder.zip"
-path_to_unpack = "шлях_до_розпакованої_теки"
-unpack(archive_path, path_to_unpack)
+do_setup(my_args_dict)
