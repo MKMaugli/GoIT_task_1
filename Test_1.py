@@ -1,25 +1,24 @@
-def get_employees_by_profession(path, profession):
+def to_indexed(path, output_path):
     try:
-        # Відкриваємо файл для читання
-        with open(path, 'r') as file:
-            # Зчитуємо рядки з файлу
-            lines = file.readlines()
+        # Відкриваємо вхідний файл для читання
+        with open(path, 'r') as source:
+            # Відкриваємо вихідний файл для запису
+            with open(output_path, 'w') as output:
+                # Зчитуємо всі рядки з вхідного файлу
+                lines = source.readlines()
 
-            # Знаходимо усі рядки, де є вказана profession
-            matching_lines = [line.strip().split(' ', 1)[0] for line in lines if profession in line]
+                # Записуємо змінений вміст у вихідний файл
+                for i, line in enumerate(lines):
+                    output.write(f"{i}: {line}")
 
-            # Об'єднуємо всі імена в один рядок
-            result_str = ' '.join(matching_lines)
-
-        return result_str
+        print("Операція успішно виконана.")
 
     except Exception as e:
-        print(f"Error: {e}")
-        return None
+        print(f"Помилка: {e}")
+
+
 
 # Приклад використання:
-path = "employees.txt"
-profession = "cook"
-
-result = get_employees_by_profession(path, profession)
-print(result)
+source_file = "input.txt"
+output_file = "output.txt"
+to_indexed(source_file, output_file)
