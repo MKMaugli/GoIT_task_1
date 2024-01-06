@@ -1,5 +1,5 @@
-from functools import reduce
+class Animal:
+    pass # some_prop
 
 
-def amount_payment(payment):
-    return reduce((lambda x, y: x + y if y >= 0 else x ), payment, 0)
+animal = Animal()
