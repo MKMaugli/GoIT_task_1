@@ -50,16 +50,17 @@ class Vector:
         return self.coordinates.x, self.coordinates.y
 
     def __add__(self, vector):
-        rx = self.coordinates.x + vector.coordinates.x
-        ry = self.coordinates.y + vector.coordinates.y
-        return Vector(Point(rx, ry))
+        x = self.coordinates.x + vector.coordinates.x
+        y = self.coordinates.y + vector.coordinates.y
+        return Vector(Point(x, y))
 
     def __sub__(self, vector):
-        rx = self.coordinates.x - vector.coordinates.x
-        ry = self.coordinates.y - vector.coordinates.y
-        return Vector(Point(rx, ry))
-        
-        
+        x = self.coordinates.x - vector.coordinates.x
+        y = self.coordinates.y - vector.coordinates.y
+        return Vector(Point(x, y))
+
+    def __mul__(self, vector):
+        return self.coordinates.x * vector.coordinates.x +  self.coordinates.y * vector.coordinates.y
         
 
     def __str__(self):
