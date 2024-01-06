@@ -1,13 +1,16 @@
-def all_sub_lists(data):
-    result = [[]]
+def make_request(keys, values):
+    # Перевірка на збіг довжин списків
+    if len(keys) != len(values):
+        return {}
 
-    for i in range(len(data)):
-        for j in range(i + 1, len(data) + 1):
-            result.append(data[i:j])
+    # Створення словника із відповідною відповідністю ключів та значень
+    request_dict = dict(zip(keys, values))
 
-    return sorted(result, key=len)
+    return request_dict
 
 # Приклад використання:
-data = [4, 6, 1, 3]
-result = all_sub_lists(data)
-print(result)
+keys = ["name", "age", "gender"]
+values = ["John", 25, "Male"]
+
+request = make_request(keys, values)
+print(request)
