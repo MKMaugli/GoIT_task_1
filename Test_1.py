@@ -44,9 +44,23 @@ class Vector:
             return self.coordinates.y
 
     def __call__(self, value=None):
-        x = self.coordinates.x * value if value != None else self.coordinates.x
-        y = self.coordinates.y * value if value != None else self.coordinates.y
-        return (x, y)
+        if value:
+            self.coordinates.x = self.coordinates.x * value
+            self.coordinates.y = self.coordinates.y * value
+        return self.coordinates.x, self.coordinates.y
+
+    def __add__(self, vector):
+        rx = self.coordinates.x + vector.coordinates.x
+        ry = self.coordinates.y + vector.coordinates.y
+        return Vector(Point(rx, ry))
+
+    def __sub__(self, vector):
+        rx = self.coordinates.x - vector.coordinates.x
+        ry = self.coordinates.y - vector.coordinates.y
+        return Vector(Point(rx, ry))
+        
+        
+        
 
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
