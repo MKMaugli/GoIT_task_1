@@ -1,30 +1,46 @@
-def solve_riddle(riddle, word_length, start_letter, reverse=False):
-    found_word = None
+button_map = {
+    ".": "1",
+    ",": "1",
+    "?": "1",
+    "!": "1",
+    ":": "1",
+    "A": "2",
+    "B": "2",
+    "C": "2",
+    "D": "3",
+    "E": "3",
+    "F": "3",
+    "G": "4",
+    "H": "8",
+    "I": "4",
+    "J": "5",
+    "K": "5",
+    "L": "5",
+    "M": "6",
+    "N": "6",
+    "O": "6",
+    "P": "7",
+    "Q": "7",
+    "R": "7",
+    "S": "7",
+    "T": "8",
+    "U": "8",
+    "V": "8",
+    "W": "9",
+    "X": "9",
+    "Y": "9",
+    "Z": "9",
+    " ": "0",
+}
 
-    if not isinstance(riddle, str):
-        raise TypeError("riddle must be a string")
-    if not isinstance(word_length, int) or word_length <= 0:
-        raise ValueError("word_length must be a positive integer")
-    if not isinstance(start_letter, str):
-        raise TypeError("start_letter must be a string")
+def sequence_buttons(string):
+    if not isinstance(string, str):
+        raise TypeError("string must be a string")
 
-    if reverse:
-        for i in range(len(riddle) - 1, -word_length - 1, -1):
-            if riddle[i] == start_letter:
-                found_word = riddle[i:i + word_length]
+    result = ""
+    for char in string:
+        for key, value in button_map.items():
+            if char == key:
+                result += value
                 break
-    else:
-        for i in range(len(riddle)):
-            if riddle[i] == start_letter:
-                found_word = riddle[i:i + word_length]
-                break
-    return found_word
-
-# Приклад використання:
-riddle_str = "mi1powperet4"
-word_length = 3
-start_letter = "r"
-reverse = True
-
-result = solve_riddle(riddle_str, word_length, start_letter, reverse)
-print(result)
+    return result
