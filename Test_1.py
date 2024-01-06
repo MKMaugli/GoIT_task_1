@@ -1,5 +1,5 @@
-def get_favorites(contacts):
-    res = []
-    for i in filter(lambda c: c["favorite"] == True, contacts):
-        res.append(i)
-    return res
+from functools import reduce
+
+
+def sum_numbers(numbers):
+    return reduce((lambda x, y: x + y), numbers)
