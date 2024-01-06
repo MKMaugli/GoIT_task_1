@@ -1,22 +1,20 @@
-def is_integer(s):
-    # Перевірка на пустий рядок
-    if len(s) == 0:
-        return False
+def capital_text(s):
+    result = ""
+    capitalize_next = True
 
-    # Видалення початкових і кінцевих прогалин
-    s = s.strip()
+    for char in s:
+        if capitalize_next and char.isalpha():
+            result += char.upper()
+            capitalize_next = False
+        else:
+            result += char
 
-    # Перевірка на наявність символів після видалення прогалин
-    if len(s) == 0:
-        return False
+        if char in ('.', '!', '?'):
+            capitalize_next = True
 
-    # Перевірка на цілі числа
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
+    return result
 
 # Приклад використання:
-result = is_integer("  +123  ")
-print(result)  # Виведе True
+text = "hello world. how are you today? i hope you're doing well!"
+result_text = capital_text(text)
+print(result_text)
