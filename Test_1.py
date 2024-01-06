@@ -1,10 +1,20 @@
-class IDException(Exception):
-    pass
+class Contacts:
+    current_id = 1
 
+    def __init__(self):
+        self.contacts = []
 
-def add_id(id_list, employee_id):
-    if employee_id.find("01", 0, 2) != -1:
-        id_list.append(employee_id)
-        return id_list
-    else:
-        raise IDException
+    def list_contacts(self):
+        return self.contacts
+        
+
+    def add_contacts(self, name, phone, email, favorite):
+        contact = {
+            "id": Contacts.current_id,
+            "name": name,
+            "phone": phone,
+            "email": email,
+            "favorite": favorite,
+        }
+        self.contacts.append(contact)
+        Contacts.current_id += 1
