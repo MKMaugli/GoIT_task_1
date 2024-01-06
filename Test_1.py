@@ -1,5 +1,5 @@
-def get_emails(list_contacts):
+def positive_values(list_payment):
     res = []
-    for i in map(lambda e: e['email'], list_contacts):
+    for i in filter(lambda p: p > 0, list_payment):
         res.append(i)
     return res
