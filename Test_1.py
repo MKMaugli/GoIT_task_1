@@ -10,14 +10,32 @@ class Animal:
         self.weight = weight
 
 
-class Dog(Animal):
-    def __init__(self, nickname, weight, breed):
-        super().__init__(nickname, weight)
-        self.breed = breed
+class Owner:
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+        self.address = address
 
+    def info(self):
+        return {
+            "name": self.name,
+            "age": self.age,
+            "address": self.address
+        }
+        
+
+class Dog(Animal):
+    def __init__(self, nickname, weight, breed, owner):
+        self.breed = breed
+        self.owner = owner
+        super().__init__(nickname, weight)
 
     def say(self):
         return "Woof"
 
+    def who_is_owner(self):
+        return self.owner.info()
 
-dog = Dog("Barbos", 23, "labrador")
+owner = Owner("Greg", 37, "East 52 street")
+dog = Dog("Bool", 7, "Frand", owner)
+dog.who_is_owner()
