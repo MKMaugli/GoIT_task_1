@@ -60,8 +60,13 @@ class Vector:
         return Vector(Point(x, y))
 
     def __mul__(self, vector):
-        return self.coordinates.x * vector.coordinates.x +  self.coordinates.y * vector.coordinates.y
-        
+        return (
+                self.coordinates.x * vector.coordinates.x
+                + self.coordinates.y * vector.coordinates.y
+        )
+
+    def len(self):
+        return (self.coordinates.x ** 2 + self.coordinates.y ** 2) ** 0.5
 
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
