@@ -1,38 +1,22 @@
-from setuptools import setup
+def is_integer(s):
+    # Перевірка на пустий рядок
+    if len(s) == 0:
+        return False
 
-def do_setup(args_dict, requires, entry_points):
-    setup(
-        name=args_dict['name'],
-        version=args_dict['version'],
-        description=args_dict['description'],
-        url=args_dict['url'],
-        author=args_dict['author'],
-        author_email=args_dict['author_email'],
-        license=args_dict['license'],
-        packages=args_dict['packages'],
-        install_requires=requires,
-        entry_points=entry_points  # Добавлен новый параметр
-    )
+    # Видалення початкових і кінцевих прогалин
+    s = s.strip()
 
-# Пример использования:
-my_args_dict = {
-    "name": "useful",
-    "version": "1",
-    "description": "Very useful code",
-    "url": "http://github.com/dummy_user/useful",
-    "author": "Flying Circus",
-    "author_email": "flyingcircus@example.com",
-    "license": "MIT",
-    "packages": ["useful"],
-}
+    # Перевірка на наявність символів після видалення прогалин
+    if len(s) == 0:
+        return False
 
-my_requires = ["dependency1", "dependency2"]
+    # Перевірка на цілі числа
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
-my_entry_points = {
-    'console_scripts': [
-        'script_name = module_name:function_name',
-        # Добавьте другие точки входа при необходимости
-    ]
-}
-
-do_setup(my_args_dict, my_requires, my_entry_points)
+# Приклад використання:
+result = is_integer("  +123  ")
+print(result)  # Виведе True
