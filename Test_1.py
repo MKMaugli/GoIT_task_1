@@ -1,3 +1,6 @@
+from random import randrange
+
+
 class Point:
     def __init__(self, x, y):
         self.__x = None
@@ -72,22 +75,54 @@ class Vector:
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
 
     def __eq__(self, vector):
-        return self.coordinates.x == vector.coordinates.x and self.coordinates.y == vector.coordinates.y
+        return self.len() == vector.len()
 
     def __ne__(self, vector):
-        return self.coordinates.x != vector.coordinates.x or self.coordinates.y != vector.coordinates.y
-
-#    def __lt__(self, vector):
-#        return self.coordinates.x < vector.coordinates.x and #self.coordinates.y < vector.coordinates.y
+        return self.len() != vector.len()
 
     def __lt__(self, vector):
         return self.len() < vector.len()
-        
+
     def __gt__(self, vector):
-        return self.coordinates.x > vector.coordinates.x and self.coordinates.y > vector.coordinates.y
+        return self.len() > vector.len()
 
     def __le__(self, vector):
-        return self.coordinates.x <= vector.coordinates.x and self.coordinates.y <= vector.coordinates.y
+        return self.len() <= vector.len()
 
     def __ge__(self, vector):
-        return self.coordinates.x >= vector.coordinates.x and self.coordinates.y >= vector.coordinates.y
+        return self.len() >= vector.len()
+
+
+class Iterable:
+    def __init__(self, max_vectors, max_points):
+        self.current_index = 0
+        self.vectors = []
+        self.max_vectors = max_vectors
+        self.max_points = max_points
+        self.set_vectors()
+
+    def set_vectors(self):
+        vector_count = 0
+        while vector_count < self.max_vectors:
+            v = Vector(Point(randrange(0, self.max_points), randrange(0, self.max_points)))
+            self.vectors.append(v)
+            vector_count += 1
+            
+
+    def __next__(self):
+        if self.current_index < self.max_vectors:
+            self.current_index += 1
+            return self.vectors[self.current_index - 1]
+        raise StopIteration
+        
+        
+
+class RandomVectors:
+    def __init__(self, max_vectors=10, max_points=50):
+        self.max_vectors = max_vectors
+        self.max_points = max_points
+        
+        
+
+    def __iter__(self):
+        return Iterable(self.max_vectors, self.max_points)
