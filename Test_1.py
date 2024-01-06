@@ -1,8 +1,14 @@
-DEFAULT_DISCOUNT = 0.05
+def caching_fibonacci():
+    cache = {}
+    def fibonacci(n):
+        if n in cache:
+            return cache[n]
+        if n == 0:
+            return 0
+        elif n == 1 or n == 2:
+            return 1
+        else:
+            last_res = cache.setdefault(n, fibonacci(n-1) + fibonacci(n-2))
+            return last_res
 
-
-def get_discount_price_customer(price, customer):
-    if "discount" in customer:
-        cust_dis = customer.get("discount")
-        return price * (1-cust_dis)
-    return price * (1-DEFAULT_DISCOUNT)
+    return fibonacci
