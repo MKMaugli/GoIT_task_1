@@ -1,20 +1,23 @@
-def get_employees_by_profession(path, profession):
-    with open(path, "r") as f:
-        lines = f.readlines()
+def encode(data):
+    if not data:
+        return []
 
-    found_employees = []
-    for line in lines:
-        if profession in line:
-            found_employees.append(line.split()[0])
+    result = []
+    for i in range(len(data)):
+        if i + 1 == len(data):
+            result.append(data[i])
+            break
 
-    result = " ".join(found_employees)
+        if data[i] == data[i + 1]:
+            result.append(data[i])
+            result.append(len(data) - i - 1)
+        else:
+            result.append(data[i])
+
     return result
 
-
 # Приклад використання:
-path = "employees.txt"
-profession = "cook"
+data = "XXXXXZXYYYYZZ"
 
-result = get_employees_by_profession(path, profession)
-
+result = encode(data)
 print(result)
