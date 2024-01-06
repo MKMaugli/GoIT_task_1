@@ -1,5 +1,10 @@
-class Animal:
-    pass # some_prop
+from collections import UserDict
 
 
-animal = Animal()
+class LookUpKeyDict(UserDict):
+    def lookup_key(self, value):
+        res = []
+        for key, val in self.data.items():
+            if val == value:
+                res.append(key)
+        return res
