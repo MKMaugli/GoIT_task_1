@@ -1,23 +1,17 @@
-def encode(data):
-    if not data:
-        return []
+from datetime import datetime
 
-    result = []
-    count = 1
-
-    # Перевіряємо, чи поточний елемент співпадає з наступним
-    while count < len(data) and data[count] == data[0]:
-        count += 1
-
-    # Додаємо елемент та кількість до результату
-    result.extend([data[0], count])
-
-    # Рекурсивно викликаємо функцію для решти списку
-    result.extend(encode(data[count:]))
-
-    return result
+def get_days_from_today(date):
+    # Перетворюємо рядок з датою в об'єкт datetime
+    target_date = datetime.strptime(date, "%Y-%m-%d")
+    
+    # Отримуємо поточну дату
+    current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    
+    # Визначаємо різницю у днях і повертаємо її
+    days_difference = (current_date - target_date).days
+    return days_difference
 
 # Приклад використання:
-original_string = "XXXXXZXYYYYZZ"
-encoded_result_string = encode(list(original_string))
-print(encoded_result_string)
+current_date = datetime.now().strftime("%Y-%m-%d")
+result = get_days_from_today("1989-08-15")
+print(f"Кількість днів з {current_date} до 1989-08-15: {result}")
