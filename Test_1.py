@@ -10,12 +10,13 @@ class Person:
 
 
 class Contacts:
-    def __init__(self, filename: str, contacts: list[Person] = None, count_save = 0):
+    def __init__(self, filename: str, contacts: list[Person] = None):
         if contacts is None:
             contacts = []
         self.filename = filename
         self.contacts = contacts
         self.count_save = 0
+        self.is_unpacking = False
         
 
     def save_to_file(self):
@@ -29,5 +30,9 @@ class Contacts:
 
     def __getstate__(self):
         attributes = self.__dict__.copy()
-        attributes['count_save'] += 1
+        attributes["count_save"] = attributes["count_save"] + 1
         return attributes
+
+    def __setstate__(self, value):
+        self.__dict__ = value
+        self.is_unpacking = True
