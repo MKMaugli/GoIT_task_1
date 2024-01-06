@@ -1,20 +1,25 @@
-import random
+def get_grade(key):
+    grade = {"A": 5, "B": 5, "C": 4, "D": 3, "E": 3, "FX": 2, "F": 1}
+    return grade.get(key, None)
 
-def get_random_winners(quantity, participants):
-    if quantity > len(participants):
-        return []
-    my_list = list(participants.keys())
-    random.shuffle(my_list)
-    return(random.sample(my_list, k=quantity))
 
-# Приклад використання
-participants = {
-    "603d2cec9993c627f0982404": "test@test.com",
-    "603f79022922882d30dd7bb6": "test11@test.com",
-    "60577ce4b536f8259cc225d2": "test2@test.com",
-    "605884760742316c07eae603": "vitanlhouse@gmail.com",
-    "605b89080c318d66862db390": "elhe2013@gmail.com",
-}
+def get_description(key):
+    description = {
+        "A": "Perfectly",
+        "B": "Very good",
+        "C": "Good",
+        "D": "Satisfactorily",
+        "E": "Enough",
+        "FX": "Unsatisfactorily",
+        "F": "Unsatisfactorily",
+    }
+    return description.get(key, None)
 
-result = get_random_winners(2, participants)
-print(result)
+
+def get_student_grade(option):
+    if option == "grade":
+        return get_grade
+    elif option == "description":
+        return get_description
+    else:
+        return None
